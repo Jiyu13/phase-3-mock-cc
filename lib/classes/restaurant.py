@@ -1,36 +1,44 @@
+import statistics
+
 class Restaurant:
     all = []
 
     def __init__(self, name):
         if type(name) == str:
             self._name = name
+
             Restaurant.all.append(self)
-        else :
-            raise Exception("Restaurant name must be a string")
+        else:
+            print("The restaurant name must be a string!")
+
+            raise Exception("The restaurant name must be a string!")
         
         self.reviews = []
         self.customers = []
 
+    '''
     @property
     def name(self):
-        # name property goes here!
+        return self._name
+    '''
+    
+    def get_name(self):
         return self._name
     
-
-    # def name(self, name):
-    #     if not hasattr(self, "_name") and type(name) == str:
-    #         self._name = name
-    #     else:
-    #         raise Exception("Your last name must be a string and contain between 1 and letters inclusive!")
-
+    name = property(get_name)
 
     def get_average_rating(self):
-        ratings = 0
+        total = 0
+
         for review in self.reviews:
-            ratings += review.rating
-        if len(self.reviews) > 0:
-            average = ratings / len(self.reviews)
-            return average
+            total += review.rating
+
+        average = total / len(self.reviews)
+
+        return average
+    
+        # return sum([review.rating for review in self.reviews]) / len(self.reviews)
+    
 
     @classmethod
     def get_all_restaurants(cls):

@@ -7,11 +7,11 @@ class Review:
         self.customer = customer
         self.restaurant = restaurant
         self.rating = rating
+
         self.add_customer_to_restaurant()
-        self.add_review_to_restaurant()
         self.add_restaurant_to_customer()
         self.add_review_to_customer()
-
+        self.add_review_to_restaurant()
 
     @property
     def customer(self):
@@ -22,36 +22,51 @@ class Review:
         if isinstance(customer, Customer):
             self._customer = customer
         else:
-            raise Exception("Customer is not an instance of class Customer")
-    
- 
-    @property
-    def restaurant(self):
-        # restaurant property goes here!
-        return self._restaurant
+            print("Customer is not an instance of class Customer!")
 
-    @restaurant.setter
-    def restaurant(self, restaurant):
+            raise Exception("Customer is not an instance of class Customer!")
+    
+    def get_restaurant(self):
+        return self._restaurant
+    
+    def set_restaurant(self, restaurant):
         if isinstance(restaurant, Restaurant):
             self._restaurant = restaurant
         else:
-            raise Exception("Restaurant is not an instance of class Restaurant")
+            print("Restaurant is not an instance of class Restaurant!")
+
+            raise Exception("Restaurant is not an instance of class Restaurant!")
+        
+    restaurant = property(get_restaurant, set_restaurant)
 
     @property
     def rating(self):
-        # rating property goes here!
         return self._rating
-
     
     @rating.setter
     def rating(self, rating):
-        if rating in [1, 2, 3, 4 ,5]:
+        if rating > 0 and rating < 6:
             self._rating = rating
-        else: 
+        else:
+            print("Your rating must be a number between 1 and 5, inclusive!")
+
             raise Exception("Your rating must be a number between 1 and 5, inclusive!")
 
+    '''
+    def get_rating(self):
+        return self._rating
+    
+    def set_rating(self, rating):
+        if rating > 0 and rating < 6: # if rating >= 1 and rating <= 5: # if 0 < rating < 6
+            self._rating = rating
+        else:
+            print("Your rating must be a number between 1 and 5, inclusive!")
 
-    # connect to other class
+            raise Exception("Your rating must be a number between 1 and 5, inclusive!")
+
+    rating = property(get_rating, set_rating)
+    '''
+
     def add_customer_to_restaurant(self):
         if self._customer not in self._restaurant.customers:
             self._restaurant.customers.append(self._customer)
@@ -64,5 +79,4 @@ class Review:
             self._customer.restaurants.append(self._restaurant)
 
     def add_review_to_customer(self):
-        # if self not in self._customer.reviews:
         self._customer.reviews.append(self)
