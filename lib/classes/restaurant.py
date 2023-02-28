@@ -4,14 +4,16 @@ class Restaurant:
     all = []
 
     def __init__(self, name):
+        # be initialized with a name, as a string
+        # Returns the restaurant's name
+        # Should not be able to change after the restaurant is created
+        # !!!! NO SETTER !!!
         if type(name) == str:
             self._name = name
-
+            # every time make a new restaurant obj, add it to all=[]
             Restaurant.all.append(self)
         else:
-            print("The restaurant name must be a string!")
-
-            raise Exception("The restaurant name must be a string!")
+            raise Exception
         
         self.reviews = []
         self.customers = []
